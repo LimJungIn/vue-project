@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue.js App</title>
+    </script>
+    <style>
+        thead {
+            color: #17a2b8;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="todo">
+        <div class="container">
+            <h1 class="mt-5">튜토리얼Todo 리스트</h1>
+
+            <!-- ★STEP11 -->
+            <label v-for="label in options" class="mx-2">
+      <input type="radio"
+        v-model="current"
+        v-bind:value="label.value" class="radio">{{ label.label }}
+    </label>
+
+            <!-- ★STEP12 -->
+            ({{ computedTodos.length }} 개의 결과 출력하기)
+
+            <!-- ★STEP4 리스트 전용 테이블 -->
+            <table class="table">
+                <thead v-pre>
+                    <tr>
+                        <th class="id">ID</th>
+                        <th class="comment">내용</th>
+                        <th class="state">상태</th>
+                        <th class="button">제거</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- ★STEP5 ToDo 요소 반복 출력-->
+                    <tr v-for="item in computedTodos" v-bind:key="item.id" v-bind:class="{done:item.state}">
+                        <th>{{ item.id }}</th>
+                        <td>{{ item.comment }}</td>
+                        <td class="state">
+                            <!-- ★STEP10 상태 변경 버튼 -->
+                            <button v-on:click="doChangeState(item)" class="btn btn-info">
+              {{ labels[item.state] }}
+            </button>
+                        </td>
+                        <td class="button">
+                            <!-- ★STEP10 제거 버튼 -->
+                            <button v-on:click.ctrl="doRemove(item)" class="btn btn-info">
+              제거
+            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>※ 제거 버튼은 컨트롤 키를 누르고 클릭하세요.</p>
+
+            <!-- ★STEP6 -->
+            <h2>새로운 작업 추가</h2>
+            <form class="add-form" v-on:submit.prevent="doAdd">
+                <!-- 내용 입력 양식 -->
+                내용 <input type="text" ref="comment">
+                <!-- 추가 버튼 목업 -->
+                <button type="submit" class="btn btn-info">추가</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <script src="./dist/build.js"></script>
+</body>
+
+</html>
